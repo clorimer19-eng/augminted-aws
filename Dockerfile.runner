@@ -1,0 +1,44 @@
+FROM python:3.11-slim
+
+ENV PYTHONUNBUFFERED=1 \
+    BLENDER_VERSION=4.2.0 \
+    BLENDER_URL=https://download.blender.org/release/Blender4.2/blender-4.2.0-linux-x64.tar.xz \
+    BLENDER_PATH=/usr/local/blender/blender \
+    DEBIAN_FRONTEND=noninteractive \
+    HOME=/app
+
+RUN apt-get update && apt-get install -y \
+    wget \
+    xz-utils \
+    libgl1 \
+    libxi6 \
+    libxrender1 \
+    libxxf86vm1 \
+    libxfixes3 \
+    libxcursor1 \
+    libxinerama1 \
+    libglib2.0-0 \
+    libxkbcommon0 \
+    libxkbcommon-x11-0 \
+    libsm6 \
+    libice6 \
+    ca-certificates \
+    libstdc++6 \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN wget -O blender.tar.xz "$BLENDER_URL" \
+    && mkdir /usr/local/blender \
+    && tar -xJf blender.tar.xz -C /usr/local/blender --strip-components=1 \
+    && rm blender.tar.xz
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+RUN mkdir -p inputs outputs logs jobs && chmod -R 777 inputs outputs logs jobs
+
+ENTRYPOINT ["python", "run_job.py"]
+CMD ["jobs/test.yaml"]

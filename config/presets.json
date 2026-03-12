@@ -1,0 +1,83 @@
+{
+    "global": {
+        "max_tris": 150000,
+        "max_texture_px": 2048,
+        "roughness_min": 0.08,
+        "roughness_max": 0.92,
+        "normal_max": 0.6,
+        "max_file_mb": 8
+    },
+    "presets": {
+        "matte_paint_plastic": {
+            "roughness": [
+                0.55,
+                0.75
+            ],
+            "metallic": [
+                0.0,
+                0.0
+            ],
+            "normal_strength": [
+                0.0,
+                0.35
+            ]
+        },
+        "semi_gloss": {
+            "roughness": [
+                0.30,
+                0.55
+            ],
+            "metallic": [
+                0.0,
+                0.0
+            ],
+            "normal_strength": [
+                0.0,
+                0.45
+            ]
+        },
+        "wood": {
+            "roughness": [
+                0.40,
+                0.70
+            ],
+            "metallic": [
+                0.0,
+                0.0
+            ],
+            "normal_strength": [
+                0.0,
+                0.40
+            ]
+        },
+        "metal": {
+            "roughness": [
+                0.08,
+                0.35
+            ],
+            "metallic": [
+                0.85,
+                1.0
+            ],
+            "normal_strength": [
+                0.0,
+                0.35
+            ]
+        },
+        "fabric_high_risk": {
+            "roughness": [
+                0.60,
+                0.85
+            ],
+            "metallic": [
+                0.0,
+                0.0
+            ],
+            "normal_strength": [
+                0.0,
+                0.25
+            ],
+            "requires_review": true
+        }
+    }
+}

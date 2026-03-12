@@ -1,0 +1,8 @@
+job_id: "matrix_armchair_poster"
+category: "armchair"
+photos_dir: "inputs/matrix_armchair_poster"
+parts:
+  - name: "armchair"
+# Routing should handle flags automatically (rembg=False, safety=True)
+constraints:
+  max_tris: 150000

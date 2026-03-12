@@ -1,0 +1,21 @@
+job_id: "chair_high_risk"
+category: "furniture"
+photos_dir: "inputs/chair_photos"
+declared_parts:
+  - name: "seat"
+    material: "fabric"
+    geometry: "soft"
+    has_folds: true
+  - name: "legs"
+    material: "wood"
+    geometry: "hard"
+    has_folds: false
+requested_outputs:
+  - glb
+constraints:
+  glb_max_mb: 8
+  max_tris: 150000
+  texture_max_px: 1024
+  roughness_min: 0.08
+  roughness_max: 0.92
+  normal_strength_max: 0.6

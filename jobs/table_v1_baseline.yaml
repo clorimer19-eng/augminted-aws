@@ -1,0 +1,9 @@
+job_id: "table_v1_baseline"
+category: "table"
+photos_dir: "inputs/table_v1_baseline"
+parts:
+  - name: "table"
+skip_bg_removal: true
+stop_after_generation: true
+constraints:
+  max_tris: 150000

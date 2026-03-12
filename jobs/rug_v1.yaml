@@ -1,0 +1,8 @@
+job_id: "rug_v1"
+category: "rug"
+material_hint: "fabric_high_risk"
+photos_dir: "inputs/rug_v1"
+parts:
+  - name: "rug"
+constraints:
+  max_tris: 150000

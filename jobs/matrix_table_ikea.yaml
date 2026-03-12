@@ -1,0 +1,8 @@
+job_id: "matrix_table_ikea"
+category: "table"
+photos_dir: "inputs/matrix_table_ikea"
+parts:
+  - name: "table"
+# Routing should handle flags automatically (rembg=False, safety=True)
+constraints:
+  max_tris: 150000

@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+google-cloud-storage
+pyyaml
+rich
+requests
+numpy
+pillow
+python-dotenv
+rembg==2.0.57
+

@@ -1,0 +1,8 @@
+job_id: "eye_table"
+category: "table"
+photos_dir: "inputs/eye_table"
+parts:
+  - name: "table"
+# v1 Routing: rembg=False, safety=True
+constraints:
+  max_tris: 150000

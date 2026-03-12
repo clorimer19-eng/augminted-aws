@@ -1,0 +1,7 @@
+job_id: "table_metrics_test"
+category: "table"
+photos_dir: "inputs/table_metrics_test"
+parts:
+  - name: "table"
+constraints:
+  max_tris: 150000

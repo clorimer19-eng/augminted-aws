@@ -1,0 +1,8 @@
+job_id: "eye_cabinet"
+category: "cabinet"
+photos_dir: "inputs/eye_cabinet"
+parts:
+  - name: "cabinet"
+# v1 Routing: rembg=False, safety=True
+constraints:
+  max_tris: 150000

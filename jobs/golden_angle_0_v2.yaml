@@ -1,0 +1,9 @@
+job_id: golden_angle_0_v2
+category: table
+input_image: inputs/golden_angle_test/angle_0.jpg
+skip_validation: True
+pipeline:
+  rembg: False
+  slicer: False
+  geometry_rules: False
+  safety_pass: True

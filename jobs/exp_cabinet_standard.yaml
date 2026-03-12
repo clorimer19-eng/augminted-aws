@@ -1,0 +1,8 @@
+job_id: "exp_cabinet_standard"
+category: "cabinet"
+photos_dir: "inputs/exp_cabinet_standard"
+parts:
+  - name: "cabinet"
+# Routing should handle flags automatically (rembg=False, safety=True)
+constraints:
+  max_tris: 150000

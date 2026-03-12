@@ -1,0 +1,10 @@
+job_id: "rug_debug_nocut"
+category: "rug"
+material_hint: "fabric_high_risk"
+photos_dir: "inputs/rug_debug_nocut"
+parts:
+  - name: "rug"
+skip_bg_removal: true
+stop_after_generation: true
+constraints:
+  max_tris: 150000

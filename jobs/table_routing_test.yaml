@@ -1,0 +1,9 @@
+job_id: "table_routing_test"
+category: "table"
+photos_dir: "inputs/table_routing_test"
+parts:
+  - name: "table"
+# No skip_bg_removal specified -> Should default to False (rembg=False) for table
+stop_after_generation: true
+constraints:
+  max_tris: 150000

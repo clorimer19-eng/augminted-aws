@@ -1,0 +1,9 @@
+job_id: "table_v2_stage1"
+category: "table"
+photos_dir: "inputs/table_v2_full"
+parts:
+  - name: "table"
+skip_bg_removal: false
+stop_after_generation: true
+constraints:
+  max_tris: 150000

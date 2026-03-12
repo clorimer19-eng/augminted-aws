@@ -1,0 +1,8 @@
+job_id: "eye_chair"
+category: "chair"
+photos_dir: "inputs/eye_chair"
+parts:
+  - name: "chair"
+# v1 Routing: rembg=False, safety=True
+constraints:
+  max_tris: 150000

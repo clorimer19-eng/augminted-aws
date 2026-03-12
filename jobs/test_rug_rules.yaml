@@ -1,0 +1,5 @@
+category: rug
+constraints:
+  max_tris: 100000
+job_id: test_rug_rules
+photos_dir: inputs/test_rug_rules

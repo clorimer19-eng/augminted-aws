@@ -1,0 +1,8 @@
+job_id: "matrix_chair_test"
+category: "chair"
+photos_dir: "inputs/matrix_chair_test"
+parts:
+  - name: "chair"
+# Routing should handle flags automatically (rembg=False, safety=True)
+constraints:
+  max_tris: 150000

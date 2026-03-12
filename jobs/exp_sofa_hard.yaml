@@ -1,0 +1,8 @@
+job_id: "exp_sofa_hard"
+category: "sofa"
+photos_dir: "inputs/exp_sofa_hard"
+parts:
+  - name: "sofa"
+# Routing should handle flags automatically (rembg=False, safety=True)
+constraints:
+  max_tris: 150000

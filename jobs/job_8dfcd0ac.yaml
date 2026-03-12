@@ -1,0 +1,21 @@
+category: General
+constraints:
+  glb_max_mb: 8
+  max_tris: 150000
+  normal_strength_max: 0.6
+  roughness_max: 0.92
+  roughness_min: 0.08
+  texture_max_px: 1024
+declared_parts:
+- geometry: soft
+  has_folds: true
+  material: fabric
+  name: seat
+- geometry: hard
+  has_folds: false
+  material: wood
+  name: legs
+job_id: job_8dfcd0ac
+photos_dir: inputs/job_8dfcd0ac
+requested_outputs:
+- glb

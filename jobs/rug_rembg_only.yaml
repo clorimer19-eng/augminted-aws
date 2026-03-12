@@ -1,0 +1,12 @@
+job_id: "rug_rembg_only"
+category: "rug"
+photos_dir: "inputs/rug_rembg_only"
+parts:
+  - name: "rug"
+skip_bg_removal: false
+run_slicer: false
+run_geometry_rules: false
+run_safety_pass: false
+stop_after_generation: false
+constraints:
+  max_tris: 150000

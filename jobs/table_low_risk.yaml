@@ -1,0 +1,21 @@
+job_id: "table_low_risk"
+category: "furniture"
+photos_dir: "inputs/table_photos"
+declared_parts:
+  - name: "top"
+    material: "wood"
+    geometry: "hard"
+    has_folds: false
+  - name: "legs"
+    material: "wood"
+    geometry: "hard"
+    has_folds: false
+requested_outputs:
+  - glb
+constraints:
+  glb_max_mb: 8
+  max_tris: 150000
+  texture_max_px: 2048
+  roughness_min: 0.08
+  roughness_max: 0.92
+  normal_strength_max: 0.6

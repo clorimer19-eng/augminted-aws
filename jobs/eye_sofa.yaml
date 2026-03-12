@@ -1,0 +1,8 @@
+job_id: "eye_sofa"
+category: "sofa"
+photos_dir: "inputs/eye_sofa"
+parts:
+  - name: "sofa"
+# v1 Routing: rembg=False, safety=True
+constraints:
+  max_tris: 150000

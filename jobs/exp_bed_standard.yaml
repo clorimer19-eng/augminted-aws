@@ -1,0 +1,8 @@
+job_id: "exp_bed_standard"
+category: "bed"
+photos_dir: "inputs/exp_bed_standard"
+parts:
+  - name: "bed"
+# Routing should handle flags automatically (rembg=False, safety=True)
+constraints:
+  max_tris: 150000

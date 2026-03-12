@@ -1,0 +1,8 @@
+category: table
+input_image: /Users/chrislorimer/.gemini/antigravity/scratch/augminted/inputs/golden_angle_highres/angle_2.jpg
+job_id: golden_angle_hr_2
+pipeline:
+  geometry_rules: false
+  rembg: false
+  safety_pass: true
+  slicer: false
