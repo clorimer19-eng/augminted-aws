@@ -24,3 +24,7 @@ frontend/dist/
 
 # misc
 *.log
+
+*.pem
+terraform/.terraform/
+terraform/*.tfstate*
