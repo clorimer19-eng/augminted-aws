@@ -2,6 +2,16 @@ provider "aws" {
   region = "ap-southeast-1"
 }
 
+resource "aws_sqs_queue" "jobs" {
+  name                       = "augminted-jobs"
+  visibility_timeout_seconds = 600
+  message_retention_seconds  = 86400
+
+  tags = {
+    Name = "augminted-jobs"
+  }
+}
+
 resource "aws_s3_bucket" "pipeline" {
   bucket = "augminted-pipeline-prod"
 }
@@ -51,9 +61,41 @@ resource "aws_iam_role_policy_attachment" "ecr_readonly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
 
+resource "aws_iam_role_policy_attachment" "cloudwatch_agent" {
+  role       = aws_iam_role.ec2_role.name
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
+}
+
 resource "aws_iam_instance_profile" "ec2_profile" {
   name = "augminted-ec2-profile"
   role = aws_iam_role.ec2_role.name
+}
+
+resource "aws_iam_role_policy" "s3_pipeline_access" {
+  name = "augminted-s3-pipeline-access"
+  role = aws_iam_role.ec2_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:ListBucket"
+        ]
+        Resource = "arn:aws:s3:::augminted-pipeline-prod"
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:DeleteObject"
+        ]
+        Resource = "arn:aws:s3:::augminted-pipeline-prod/*"
+      }
+    ]
+  })
 }
 
 resource "aws_instance" "worker" {
@@ -66,4 +108,23 @@ resource "aws_instance" "worker" {
   tags = {
     Name = "augminted-worker"
   }
+}
+resource "aws_iam_role_policy" "sqs_access" {
+  name = "augminted-sqs-access"
+  role = aws_iam_role.ec2_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage",
+          "sqs:GetQueueAttributes"
+        ]
+        Resource = aws_sqs_queue.jobs.arn
+      }
+    ]
+  })
 }
