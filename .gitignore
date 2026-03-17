@@ -49,3 +49,4 @@ frontend/dist/
 *.pem
 terraform/.terraform/
 terraform/*.tfstate*
+AWSCLIV2.pkg
