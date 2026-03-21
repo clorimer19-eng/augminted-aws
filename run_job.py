@@ -86,6 +86,10 @@ def main():
     with open(job_path, "r") as f:
         job = yaml.safe_load(f) or {}
 
+    print("\n=== DEBUG: LOADED JOB YAML ===")
+    print(job)
+    print("================================\n")
+
     raw_category = job.get("category", DEFAULT_CATEGORY)
     category = str(raw_category).strip().lower()
 
@@ -96,7 +100,17 @@ def main():
         print(f"[yellow]Unknown category '{category}', defaulting to '{DEFAULT_CATEGORY}'[/yellow]")
         category = DEFAULT_CATEGORY
     job_id = job.get("job_id", "unknown_job")
-    constraints = job.get("constraints", {})
+
+    resolved = job.get("resolved_constraints")
+    if not resolved:
+        raise ValueError("Missing required 'resolved_constraints' in job YAML")
+
+    print("Using resolved_constraints:")
+    print(f"  max_tris={resolved.get('max_tris')}")
+    print(f"  normal_max={resolved.get('normal_max')}")
+    print(f"  roughness_min={resolved.get('roughness_min')}")
+    print(f"  roughness_max={resolved.get('roughness_max')}")
+
     photos_dir = job.get("photos_dir", "inputs")
 
     print(f"\n[bold]Running job:[/bold] {job_id}")
@@ -349,32 +363,28 @@ def main():
 
     # 4) Global Safety Pass + Preset Application
     if pipe_conf.safety_pass:
-        out_path = f"outputs/{job_id}_safety.glb"
         print("\n[bold]Running Blender Safety Pass & Presets...[/bold]")
-        
-        cmd = [
-            BLENDER_BIN, "-b",
-            "-P", "blender/safety_pass.py",
-            "--",
-            "--in", in_model,
-            "--out", out_path,
-            "--metrics", f"outputs/{job_id}_debug_metrics.json",
-            "--max_tris", str(constraints.GLOBAL_RULES.get("max_tris", 300000)),
-            "--texture_max", str(constraints.GLOBAL_RULES.get("max_texture_px", 2048)),
-            "--rough_min", "0.60",
-            "--rough_max", "0.85",
-            "--normal_max", "0.20"
-        ]
-        
-        subprocess.run(cmd, check=True)
+
+        out_path = f"outputs/{job_id}_safety.glb"
+
+        run_safety_pass(
+            in_model=in_model,
+            out_path=out_path,
+            metrics_path=f"outputs/{job_id}_debug_metrics.json",
+            max_tris=resolved["max_tris"],
+            texture_max_px=resolved["texture_max_px"],
+            roughness_min=resolved["roughness_min"],
+            roughness_max=resolved["roughness_max"],
+            normal_max=resolved["normal_max"],
+        )
+
         print(f"[green]Success![/green] Final output: {out_path}")
         collect_metrics("04_safety", out_path)
+
     else:
-        print(f"[dim]Safety Pass skipped (Routing: safety=False).[/dim]")
-        # If safety pass is skipped, the final output is the input model
+        print("[dim]Safety Pass skipped (Routing: safety=False).[/dim]")
         out_path = in_model
         collect_metrics("04_safety_skipped", out_path)
-
 
     # Save all collected metrics
     metrics_path = f"outputs/{job_id}_debug_metrics.json"

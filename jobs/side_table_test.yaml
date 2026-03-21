@@ -1,0 +1,31 @@
+job_id: side-table-test
+category: table
+
+product_profile:
+  main_material: natural_wood
+  metal_parts: true
+  finish: soft_sheen
+  surface_detail: smooth
+  structure: thin
+  wood_tone: medium
+
+resolved_constraints:
+  max_tris: 100000
+  normal_max: 0.20
+  roughness_min: 0.35
+  roughness_max: 0.65
+  texture_max_px: 2048
+  max_file_mb: 8
+
+declared_parts:
+  - name: top
+    material: wood
+    geometry: hard
+    has_folds: false
+  - name: frame
+    material: metal
+    geometry: hard
+    has_folds: false
+
+requested_outputs:
+  - glb

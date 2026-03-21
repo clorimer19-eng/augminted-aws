@@ -259,10 +259,10 @@ def main():
     metrics_path = args.get("metrics")
 
     # Constraints
-    target_tris = int(args.get("max_tris", 150000))
+    target_tris = int(args.get("max_tris", 100000))
     rough_min = float(args.get("rough_min", 0.08))
     rough_max = float(args.get("rough_max", 0.92))
-    normal_max = float(args.get("normal_max", 0.6))
+    normal_max = float(args.get("normal_max", 0.3))
 
 
     if not in_path:

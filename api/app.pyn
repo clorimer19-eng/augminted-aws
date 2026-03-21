@@ -77,38 +77,42 @@ def get_status(job_id: str, request: Request):
     key = f"status/{job_id}.json"
 
     try:
-        response = s3.get_object(Bucket=BUCKET_NAME, Key=key)
-        content = response["Body"].read().decode("utf-8")
-        data = json.loads(content)
+response = s3.get_object(Bucket=BUCKET_NAME, Key=key)
+content = response["Body"].read().decode("utf-8")
+data = json.loads(content)
 
-        if data.get("status") == "done":
-            glb_key = f"outputs/{job_id}/model.glb"
-            usdz_key = f"outputs/{job_id}/model.usdz"
+if data.get("status") == "done":
+    glb_key = f"outputs/{job_id}/model.glb"
+    usdz_key = f"outputs/{job_id}/model.usdz"
 
-            try:
-                s3.head_object(Bucket=BUCKET_NAME, Key=glb_key)
-                data["glb_url"] = s3.generate_presigned_url(
-                    "get_object",
-                    Params={"Bucket": BUCKET_NAME, "Key": glb_key},
-                    ExpiresIn=3600
-                )
-            except ClientError:
-                data["glb_url"] = None
+    try:
+        s3.head_object(Bucket=BUCKET_NAME, Key=glb_key)
+        data["glb_url"] = s3.generate_presigned_url(
+            "get_object",
+            Params={"Bucket": BUCKET_NAME, "Key": glb_key},
+            ExpiresIn=3600
+        )
+    except ClientError:
+        data["glb_url"] = None
 
-            try:
-                s3.head_object(Bucket=BUCKET_NAME, Key=usdz_key)
-                data["usdz_url"] = s3.generate_presigned_url(
-                    "get_object",
-                    Params={"Bucket": BUCKET_NAME, "Key": usdz_key},
-                    ExpiresIn=3600
-                )
-            except ClientError:
-                data["usdz_url"] = None
+    try:
+        s3.head_object(Bucket=BUCKET_NAME, Key=usdz_key)
+        data["usdz_url"] = s3.generate_presigned_url(
+            "get_object",
+            Params={"Bucket": BUCKET_NAME, "Key": usdz_key},
+            ExpiresIn=3600
+        )
+    except ClientError:
+        data["usdz_url"] = None
 
-        return data
+return data
 
     except s3.exceptions.NoSuchKey:
         return {"job_id": job_id, "status": "not_found"}
 
     except Exception as e:
-        return {"job_id": job_id, "status": "error", "detail": str(e)}
+        return {
+            "job_id": job_id,
+            "status": "error",
+            "detail": str(e)
+        }

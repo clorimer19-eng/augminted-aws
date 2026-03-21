@@ -1,0 +1,21 @@
+job_id: clean_test
+category: table
+
+product_profile:
+  main_material: natural_wood
+  metal_parts: true
+  finish: soft_sheen
+  surface_detail: smooth
+  structure: thin
+  wood_tone: medium
+
+resolved_constraints:
+  max_tris: 100000
+  normal_max: 0.20
+  roughness_min: 0.35
+  roughness_max: 0.65
+  texture_max_px: 2048
+  max_file_mb: 8
+
+requested_outputs:
+  - usdz

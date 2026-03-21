@@ -1,0 +1,28 @@
+job_id: rules-v1-test
+category: table
+photos_dir: inputs/table_v1_baseline
+product_profile:
+  main_material: natural_wood
+  metal_parts: true
+  finish: matte
+  surface_detail: light
+  structure: medium
+  wood_tone: medium
+resolved_constraints:
+  max_tris: 100000
+  normal_max: 0.25
+  roughness_min: 0.35
+  roughness_max: 0.65
+  texture_max_px: 2048
+  max_file_mb: 8
+declared_parts:
+  - name: seat
+    material: fabric
+    geometry: soft
+    has_folds: true
+  - name: legs
+    material: wood
+    geometry: hard
+    has_folds: false
+requested_outputs:
+  - glb

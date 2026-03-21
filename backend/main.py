@@ -7,6 +7,7 @@ import subprocess
 import uuid
 import yaml
 import json
+from scripts.preset_resolver import resolve_constraints
 from typing import List, Optional
 from fastapi import FastAPI, File, UploadFile, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
@@ -89,25 +90,32 @@ async def create_job(
         except json.JSONDecodeError:
             print("Failed to parse specs JSON")
 
-    job_yaml = {
-        "job_id": job_id,
-        "category": category,
-        "photos_dir": f"inputs/{job_id}", # Relative to root
-        "material_specs": specs_dict, # Save user inputs
-        "declared_parts": [
-             # Mock parts for the slicer to find
-             {"name": "seat", "material": "fabric", "geometry": "soft", "has_folds": True},
-             {"name": "legs", "material": "wood", "geometry": "hard", "has_folds": False}
-        ],
-        "requested_outputs": ["glb"],
-        "constraints": {
-            "glb_max_mb": 8,
-            "max_tris": 150000,
-            "texture_max_px": 1024,
-            "roughness_min": 0.08,
-            "roughness_max": 0.92,
-            "normal_strength_max": 0.6
-        }
+# Define product profile (temporary hardcoded for v1 testing)
+product_profile = {
+    "main_material": "natural_wood",
+    "metal_parts": True,
+    "finish": "matte",
+    "surface_detail": "light",
+    "structure": "medium",
+    "wood_tone": "medium",
+}
+
+# Resolve constraints from profile
+resolved = resolve_constraints(product_profile)
+
+print("Resolved constraints:", resolved)
+
+job_yaml = {
+    "job_id": job_id,
+    "category": category,
+    "photos_dir": f"inputs/{job_id}",
+    "product_profile": product_profile,
+    "resolved_constraints": resolved,
+    "declared_parts": [
+        {"name": "seat", "material": "fabric", "geometry": "soft", "has_folds": True},
+        {"name": "legs", "material": "wood", "geometry": "hard", "has_folds": False}
+    ],
+    "requested_outputs": ["glb"]
     }
     
     job_file = os.path.join(JOBS_DIR, f"{job_id}.yaml")
